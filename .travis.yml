@@ -1,6 +1,7 @@
-language: minimal
+language: shell
 dist: bionic
-service:
+os: linux
+services:
   - docker
 before_script:
   - docker pull lll9p/docker-lede-builder
@@ -11,9 +12,9 @@ script:
   - docker run --rm=true -v ${HOME}:/home/build lll9p/docker-lede-builder /bin/bash /home/build/lll9p/lede-builder/build.sh
 deploy:
   provider: releases
-  api_key: ${GITHUB_TOKEN}
+  token: ${GITHUB_TOKEN}
   file:
     - ${home}/lede/bin/targets/ramips/mt7621/openwrt-ramips-mt7621-phicomm_k2p-initramfs-kernel.bin
     - ${home}/lede/bin/targets/ramips/mt7621/openwrt-ramips-mt7621-phicomm_k2p-squashfs-sysupgrade.bin
-  skip_cleanup: true
+  cleanup: false
   draft: true
