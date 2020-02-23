@@ -40,7 +40,7 @@ cd ${BUILD_PATH}/lede
 make defconfig
 
 echo '--- Download needed files. ---'
-make download
+make download 2>&1 | tee build.log
 
 echo '--- Start build. ---'
-make -j5 V=s
+make -j5 V=s 2>&1 | tee build.log
