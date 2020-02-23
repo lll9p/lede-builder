@@ -2,6 +2,7 @@
 BUILD_PATH="/home/build"
 echo 'Clone lede.'
 echo ''
+ls ${BUILD_PATH} -al
 if [[ ! -d ${BUILD_PATH}/lede ]]; then
     git clone https://github.com/coolsnowwolf/lede
 fi
