@@ -5,7 +5,6 @@ services:
   - docker
 before_script:
   - docker pull lll9p/docker-lede-builder
-  - bash ${HOME}/buid/lll9p/lede-builder/clone.sh
 cache:
   directories:
     - ${HOME}/build/lll9p/lede-builder/lede
