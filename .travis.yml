@@ -11,12 +11,13 @@ cache:
     - ${HOME}/build/lll9p/lede-builder/luci-app-serverchan
 script:
   - chmod -R 777 ${HOME}/build/lll9p/lede-builder
-  - docker run -d --rm=true -v ${HOME}/build/lll9p/lede-builder:/home/build lll9p/docker-lede-builder /bin/bash /home/build/build.sh
+  - docker run --rm=true -v ${HOME}/build/lll9p/lede-builder:/home/build lll9p/docker-lede-builder /bin/bash /home/build/build.sh
 deploy:
   provider: releases
   token: ${GITHUB_TOKEN}
   file:
     - ${home}/build/lll9p/lede-builder/lede/bin/targets/ramips/mt7621/openwrt-ramips-mt7621-phicomm_k2p-initramfs-kernel.bin
     - ${home}/build/lll9p/lede-builder/lede/bin/targets/ramips/mt7621/openwrt-ramips-mt7621-phicomm_k2p-squashfs-sysupgrade.bin
+    - ${home}/build/lll9p/lede-builder/build.log
   cleanup: false
   draft: true
