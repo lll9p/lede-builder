@@ -2,9 +2,13 @@
 BUILD_PATH="/home/build"
 echo 'Clone lede.'
 echo ''
-[[ ! -d ${HOME}/build/lll9p/lede-builder/lede ]] && git clone https://github.com/coolsnowwolf/lede
+if [[ ! -d ${HOME}/build/lll9p/lede-builder/lede ]]; then
+    git clone https://github.com/coolsnowwolf/lede
+fi
 
 echo 'Clone serverchan.'
 echo ''
-[[ ! -d ${HOME}/build/lll9p/lede-builder/luci-app-serverchan ]] && git clone https://github.com/tty228/luci-app-serverchan
+if [[ ! -d ${HOME}/build/lll9p/lede-builder/luci-app-serverchan ]]; then
+    git clone https://github.com/tty228/luci-app-serverchan
+fi
 
