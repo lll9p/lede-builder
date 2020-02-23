@@ -2,7 +2,6 @@
 BUILD_PATH="/home/build"
 echo 'Clone lede.'
 echo ''
-ls ${BUILD_PATH} -al
 if [[ ! -d ${BUILD_PATH}/lede ]]; then
     git clone https://github.com/coolsnowwolf/lede
 fi
@@ -15,6 +14,7 @@ fi
 
 echo '--- Pull from lede. ---'
 cd ${BUILD_PATH}/lede
+ls -al ${BUILD_PATH}/lede
 git pull
 git status
 echo '--- Pull from luci-app-serverchan. ---'
