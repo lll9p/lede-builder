@@ -1,5 +1,7 @@
 #!/bin/bash
 BUILD_PATH="/home/build"
+rm -rf ${BUILD_PATH}/.git
+
 echo 'Clone lede.'
 echo ''
 if [[ ! -d ${BUILD_PATH}/lede ]]; then
@@ -31,7 +33,7 @@ fi
 echo ''
 echo '--- Update feeds. ---'
 echo ''
-${BUILD_PATH}/lede/scripts/feeds update -a && ${BUILD_PATH}/lede/scripts/feeds install -a
+${BUILD_PATH}/lede/scripts/feeds update -a && ${BUILD_PATH}/lede/scripts/feeds install -a | tee ${BUILD_PATH}/build.log
 
 echo '--- Remove tmp files. ---'
 if [ -d ${BUILD_PATH}/lede/tmp ]; then
@@ -53,7 +55,7 @@ echo '--- Download needed files. ---'
 make download 2>&1 | tee ${BUILD_PATH}/build.log
 
 echo '--- Start build. ---'
-make -j5 V=s 2>&1 | tee build.log
+make -j5 V=s 2>&1 | tee ${BUILD_PATH}/build.log
 if [ -f ${BUILD_PATH}/lede/build.log ]; then
     rm ${BUILD_PATH}/lede/build.log
 fi
