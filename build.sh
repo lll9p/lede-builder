@@ -13,12 +13,6 @@ if [[ ! -d ${BUILD_PATH}/luci-app-serverchan ]]; then
     git clone https://github.com/tty228/luci-app-serverchan
 fi
 
-echo 'Start build script.'
-echo ''
-
-echo '--- Pull from git server. ---'
-echo ''
-
 echo '--- Pull from lede. ---'
 cd ${BUILD_PATH}/lede
 git pull
@@ -30,6 +24,7 @@ echo ''
 echo '--- Add luci-app-serverchan to package. ---'
 echo ''
 if [ ! -f ${BUILD_PATH}/lede/package/feeds/luci/luci-app-serverchan ]; then
+    mkdir -p ${BUILD_PATH}/lede/package/feeds/luci
     ln -s ${BUILD_PATH}/luci-app-serverchan ${BUILD_PATH}/lede/package/feeds/luci/luci-app-serverchan
 fi
 
@@ -55,12 +50,12 @@ pwd
 make defconfig
 
 echo '--- Download needed files. ---'
-make download 2>&1 | tee build.log
+make download 2>&1 | tee ${BUILD_PATH}/build.log
 
 echo '--- Start build. ---'
 make -j5 V=s 2>&1 | tee build.log
 if [ -f ${BUILD_PATH}/lede/build.log ]; then
     rm ${BUILD_PATH}/lede/build.log
 fi
-rm -rf ${BUILD_PATH}/lede
-rm -rf ${BUILD_PATH}/lede/luci-app-serverchan
+rm -rf ${BUILD_PATH}/lede/.config
+#rm -rf ${BUILD_PATH}/lede/luci-app-serverchan
