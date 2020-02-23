@@ -1,0 +1,20 @@
+service:
+  - docker
+before_script:
+  - docker pull lll9p/docker-lede-builder
+  - git clone https://github.com/coolsnowwolf/lede
+  - git clone https://github.com/tty228/luci-app-serverchan
+  - rm ${HOME}/lede/package/feeds/luci/luci-app-serverchan
+  - ln -s ${HOME}/luci-app-serverchan ${HOME}/lede/package/feeds/luci/luci-app-serverchan
+  - chmod -R 777 lede
+  - chmod -R 777 luci-app-serverchan
+script:
+  - docker run --rm=true -v ${HOME}:/home/build lll9p/docker-lede-builder /bin/bash /home/build/build.sh
+deploy:
+  provider: releases
+  api_key: ${GITHUB_TOKEN}
+  file:
+    - ${home}/lede/bin/targets/ramips/mt7621/openwrt-ramips-mt7621-phicomm_k2p-initramfs-kernel.bin
+    - ${home}/lede/bin/targets/ramips/mt7621/openwrt-ramips-mt7621-phicomm_k2p-squashfs-sysupgrade.bin
+  skip_cleanup: true
+  draft: true
