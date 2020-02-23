@@ -21,6 +21,7 @@ echo ''
 echo '--- Pull from lede. ---'
 cd ${BUILD_PATH}/lede
 git pull
+git status
 echo '--- Pull from luci-app-serverchan. ---'
 cd ${BUILD_PATH}/luci-app-serverchan
 git pull
