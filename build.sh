@@ -46,7 +46,7 @@ cp ${BUILD_PATH}/diffconfig ${BUILD_PATH}/lede/.config
 
 echo '--- Expand to full config file. ---'
 cd ${BUILD_PATH}/lede
-pwd
+ls -al
 make defconfig
 
 echo '--- Download needed files. ---'
