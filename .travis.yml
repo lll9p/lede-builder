@@ -7,16 +7,15 @@ before_script:
   - docker pull lll9p/docker-lede-builder
   - git clone https://github.com/coolsnowwolf/lede
   - git clone https://github.com/tty228/luci-app-serverchan
-  - cd lede && pwd
-  - chmod -R 777 ${HOME}
+  - chmod -R 777 ${HOME}/build/lll9p/lede-builder/
   - ls -al ${HOME}
 script:
-  - docker run --rm=true -v ${HOME}:/home/build lll9p/docker-lede-builder /bin/bash /home/build/lll9p/lede-builder/build.sh
+  - docker run --rm=true -v ${HOME}/build/lll9p/lede-builder/:/home/build lll9p/docker-lede-builder /bin/bash /home/build/build.sh
 deploy:
   provider: releases
   token: ${GITHUB_TOKEN}
   file:
-    - ${home}/lede/bin/targets/ramips/mt7621/openwrt-ramips-mt7621-phicomm_k2p-initramfs-kernel.bin
-    - ${home}/lede/bin/targets/ramips/mt7621/openwrt-ramips-mt7621-phicomm_k2p-squashfs-sysupgrade.bin
+    - ${home}/build/lll9p/lede-builder/lede/bin/targets/ramips/mt7621/openwrt-ramips-mt7621-phicomm_k2p-initramfs-kernel.bin
+    - ${home}/build/lll9p/lede-builder/lede/bin/targets/ramips/mt7621/openwrt-ramips-mt7621-phicomm_k2p-squashfs-sysupgrade.bin
   cleanup: false
   draft: true

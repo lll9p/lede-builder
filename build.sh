@@ -6,7 +6,6 @@ echo ''
 echo '--- Pull from git server. ---'
 echo ''
 
-rm -rf ${BUILD_PATH}/.*
 echo '--- Pull from lede. ---'
 cd ${BUILD_PATH}/lede
 git pull
