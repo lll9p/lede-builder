@@ -14,12 +14,19 @@ git pull
 echo ''
 echo '--- Add luci-app-serverchan to package. ---'
 echo ''
-rm ${BUILD_PATH}/lede/package/feeds/luci/luci-app-serverchan
-ln -s ${BUILD_PATH}/luci-app-serverchan ${BUILD_PATH}/lede/package/feeds/luci/luci-app-serverchan
+if [ ! -f ${BUILD_PATH}/lede/package/feeds/luci/luci-app-serverchan ]; then
+    ln -s ${BUILD_PATH}/luci-app-serverchan ${BUILD_PATH}/lede/package/feeds/luci/luci-app-serverchan
+fi
+
+echo ''
+echo '--- Update feeds. ---'
+echo ''
 ${BUILD_PATH}/lede/scripts/feeds update -a && ${BUILD_PATH}/lede/scripts/feeds install -a
 
 echo '--- Remove tmp files. ---'
-rm -rf ${BUILD_PATH}/lede/tmp
+if [ -d ${BUILD_PATH}/lede/tmp ]; then
+    rm -rf ${BUILD_PATH}/lede/tmp
+fi
 
 echo '--- Remove tmp old config. ---'
 rm -rf ${BUILD_PATH}/lede/.config

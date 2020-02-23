@@ -1,11 +1,10 @@
+language: minimal
 service:
   - docker
 before_script:
   - docker pull lll9p/docker-lede-builder
   - git clone https://github.com/coolsnowwolf/lede
   - git clone https://github.com/tty228/luci-app-serverchan
-  - rm ${HOME}/lede/package/feeds/luci/luci-app-serverchan
-  - ln -s ${HOME}/luci-app-serverchan ${HOME}/lede/package/feeds/luci/luci-app-serverchan
   - chmod -R 777 lede
   - chmod -R 777 luci-app-serverchan
 script:
