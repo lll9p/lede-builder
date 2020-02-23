@@ -51,6 +51,7 @@ cp ${BUILD_PATH}/diffconfig ${BUILD_PATH}/lede/.config
 
 echo '--- Expand to full config file. ---'
 cd ${BUILD_PATH}/lede
+pwd
 make defconfig
 
 echo '--- Download needed files. ---'
@@ -58,3 +59,8 @@ make download 2>&1 | tee build.log
 
 echo '--- Start build. ---'
 make -j5 V=s 2>&1 | tee build.log
+if [ -f ${BUILD_PATH}/lede/build.log ]; then
+    rm ${BUILD_PATH}/lede/build.log
+fi
+rm -rf ${BUILD_PATH}/lede
+rm -rf ${BUILD_PATH}/lede/luci-app-serverchan
