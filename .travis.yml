@@ -5,8 +5,12 @@ services:
   - docker
 before_script:
   - docker pull lll9p/docker-lede-builder
-  - git clone https://github.com/coolsnowwolf/lede
-  - git clone https://github.com/tty228/luci-app-serverchan
+  - [[ ! -d ${HOME}/build/lll9p/lede-builder/lede ]] && git clone https://github.com/coolsnowwolf/lede
+  - [[ ! -d ${HOME}/build/lll9p/lede-builder/luci-app-serverchan ]] && git clone https://github.com/tty228/luci-app-serverchan
+cache:
+  directories:
+    - ${HOME}/build/lll9p/lede-builder/lede
+    - ${HOME}/build/lll9p/lede-builder/luci-app-serverchan
 script:
   - chmod -R 777 ${HOME}/build/lll9p/lede-builder
   - docker run --rm=true -v ${HOME}/build/lll9p/lede-builder:/home/build lll9p/docker-lede-builder /bin/bash /home/build/build.sh
