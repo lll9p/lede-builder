@@ -5,11 +5,16 @@ services:
   - docker
 before_script:
   - docker pull lll9p/docker-lede-builder
+
 script:
   - chmod -R 777 ${HOME}/build/lll9p/lede-builder
   - docker run --rm=true -v ${HOME}/build/lll9p/lede-builder:/home/build lll9p/docker-lede-builder /bin/bash /home/build/build.sh
 after_script:
   - rm ${HOME}/build/lll9p/lede-builder/lede/.config
+cache:
+  directories:
+    - ${HOME}/build/lll9p/lede-builder/lede
+    - ${HOME}/build/lll9p/lede-builder/luci-app-serverchan
 deploy:
   provider: releases
   token: ${GITHUB_TOKEN}
